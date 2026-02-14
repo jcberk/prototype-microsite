@@ -1,9 +1,10 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="Hunger in US Schools")
 
-# TODO move the code to secrets
-if 'access_code' not in st.session_state or st.session_state.access_code != "test":
+if 'access_code' not in st.session_state or \
+    st.session_state.access_code != os.environ["access_code_secret"]:
     login_page = st.Page("login.py", title="Enter access code")
     pg = st.navigation([login_page])
 
