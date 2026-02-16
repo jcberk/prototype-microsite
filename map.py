@@ -23,5 +23,21 @@ january_schools = get_january_schools()
 
 st.header("Schools with Hunger Projects, January 2026")
 
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.subheader(f"{january_schools['Project Count'].sum()} Projects")
+with col2:
+    st.subheader(f"${january_schools['Project Total Cost Breakdown Total Cost'].sum():,.2f} \
+        Requested")
+with col3:
+    st.subheader(f"${january_schools['Project Total Cost To Complete (Not Including Match)'].sum():,.2f} \
+        Remaining to Fund")
+
 mappable_january_schools = january_schools.dropna(subset=["Latitude","Longitude"])
-st.map(data=mappable_january_schools, latitude="Latitude", longitude="Longitude")
+
+#mappable_january_schools["color"] = "#ff0000"
+mappable_january_schools.loc[:,"color"] = ["#ff0000" if d >= 50 else "#ffc000" \
+    for d in mappable_january_schools["School Percentage Free Lunch"]]
+
+st.map(data=mappable_january_schools, latitude="Latitude", longitude="Longitude", color="color")
+st.caption("&#x1F534; 50+% Free / Reduced Price Lunch, &#x1F7E1; < 50%")
