@@ -40,4 +40,5 @@ mappable_january_schools.loc[:,"color"] = ["#ff0000" if d >= 50 else "#ffc000" \
     for d in mappable_january_schools["School Percentage Free Lunch"]]
 
 st.map(data=mappable_january_schools, latitude="Latitude", longitude="Longitude", color="color")
-st.caption("&#x1F534; 50+% Free / Reduced Price Lunch, &#x1F7E1; < 50%")
+st.caption("Red = hunger projects with 50+% free and reduced-price lunch")
+st.caption("Yellow = hunger projects with <50% free and reduced-price lunch")

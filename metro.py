@@ -35,18 +35,23 @@ if 'metro' in st.session_state:
 
     st.header(f"School Hunger Projects, January 2024 through December 2025, {st.session_state.metro} Area")
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
     with col1:
         st.subheader(f"{metro_schools['Project Count'].sum():,}")
-        st.write("Hunger projects")
+        st.write("Total projects")
     with col2:
         st.subheader(f"${metro_schools['Total Requested'].sum():,.2f}")
-        st.write("Requested")
-    with col3:
-        st.subheader(f"${metro_schools['Total To Complete'].sum():,.2f}")
-        st.write("Remaining to Fund")
+        st.write("Total requested")
 
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader(f"{metro_schools['Hunger Project Count'].sum():,}")
+        st.write("Hunger projects")
+    with col2:
+        st.subheader(f"${metro_schools['Hunger Total Requested'].sum():,.2f}")
+        st.write("Hunger total requested")
+
+    col1, col2 = st.columns(2)
     with col1:
         st.subheader(f"{metro_schools.shape[0]:,}")
         st.write("Local schools")
@@ -54,15 +59,16 @@ if 'metro' in st.session_state:
         st.subheader(f"{metro_schools[metro_schools['EFS']=='Yes'].shape[0]:,}")
         st.write("DonorsChoose Equity Focus Schools")
 
-    st.subheader("Schools with Most Requests")
+    st.subheader("Schools with Most Hunger Requests")
     st.dataframe(metro_schools\
-        [['School Name','EFS','Project Count','Total Requested']]\
-        .sort_values(by='Project Count', ascending=False).head(10)\
-        .style.format({'Total Requested': '${:,.2f}'}), hide_index=True)
+        [['School Name','EFS','Hunger Project Count','Hunger Total Requested']]\
+        .sort_values(by='Hunger Project Count', ascending=False).head(10)\
+        .style.format({'Hunger Total Requested': '${:,.2f}'}), hide_index=True)
 
-    st.subheader("All schools")
+    st.subheader("All area schools")
 
-    mappable_metro_schools = metro_schools.dropna(subset=["Latitude","Longitude"])
+    mappable_metro_schools = metro_schools.dropna(subset=["Latitude","Longitude"])\
+        .sort_values(by="Hunger Project Count")  # Red and yellow dots drawn last so on top
 
     def label_color(row):
         if row['School Percentage Free Lunch'] >= 50 and row['Hunger Total Requested'] > 0:
