@@ -26,4 +26,6 @@ else:
 
 pg.run()
 
-credits()
+if 'access_code' in st.session_state and \
+    st.session_state.access_code == os.environ["access_code_secret"]:
+    credits()
