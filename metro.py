@@ -33,7 +33,11 @@ if 'metro' in st.session_state:
         'Project Total Cost To Complete (Not Including Match)': 'Total To Complete', \
         'School (MDR demographics) Is 2025 Equity Focus School (Yes / No)': 'EFS'})
 
-    st.header(f"School Hunger Projects, January 2024 through December 2025, {st.session_state.metro} Area")
+    st.header(f"{st.session_state.metro} Area")
+    st.write("This historical view showcases how hunger and nutrition have shown up recently \
+        in public school classrooms in Nestl&eacute;'s geographic focus areas.")
+
+    st.subheader(f"School Hunger Projects, January 2024 - December 2025")
 
     col1, col2 = st.columns(2)
     with col1:

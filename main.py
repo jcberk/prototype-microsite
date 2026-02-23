@@ -21,8 +21,8 @@ if 'access_code' not in st.session_state or \
     pg = st.navigation([login_page])
 
 else:
-    map_page = st.Page("map.py", title="Map of schools")
-    metro_page = st.Page("metro.py", title="Metro areas")
+    map_page = st.Page("map.py", title="Live* classroom needs")
+    metro_page = st.Page("metro.py", title="Hunger and nutrition by metro area")
     pg = st.navigation([map_page, metro_page])
 
 pg.run()
