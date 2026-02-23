@@ -33,11 +33,15 @@ with col3:
     st.subheader(f"${january_schools['Project Total Cost To Complete (Not Including Match)'].sum():,.2f} \
         Remaining to Fund")
 
-mappable_january_schools = january_schools.dropna(subset=["Latitude","Longitude"])
+mappable_january_schools = january_schools.dropna(subset=["Latitude","Longitude"]).copy()
 
-#mappable_january_schools["color"] = "#ff0000"
-mappable_january_schools.loc[:,"color"] = ["#ff0000" if d >= 50 else "#ffc000" \
-    for d in mappable_january_schools["School Percentage Free Lunch"]]
+def label_color(row):
+    if row['School Percentage Free Lunch'] >= 50:
+        return "#ff0000"
+    if row['School Percentage Free Lunch'] < 50:
+        return "#ffc000"
+    return "#00ff00"
+mappable_january_schools.loc[:, "color"] = mappable_january_schools.apply(label_color, axis=1)
 
 st.map(data=mappable_january_schools, latitude="Latitude", longitude="Longitude", color="color")
 st.caption("Red = hunger projects with 50+% free and reduced-price lunch")

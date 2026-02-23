@@ -68,7 +68,7 @@ if 'metro' in st.session_state:
     st.subheader("All area schools")
 
     mappable_metro_schools = metro_schools.dropna(subset=["Latitude","Longitude"])\
-        .sort_values(by="Hunger Project Count")  # Red and yellow dots drawn last so on top
+        .sort_values(by="Hunger Project Count").copy()  # Red and yellow dots drawn last so on top
 
     def label_color(row):
         if row['School Percentage Free Lunch'] >= 50 and row['Hunger Total Requested'] > 0:
