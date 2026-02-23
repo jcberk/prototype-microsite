@@ -83,7 +83,7 @@ if 'metro' in st.session_state:
     mappable_metro_schools["color"] = mappable_metro_schools.apply(label_color, axis=1)
 
     st.map(data=mappable_metro_schools, latitude="Latitude", longitude="Longitude", color="color")
-    st.caption("Red = hunger projects with 50+% free and reduced-price lunch")
-    st.caption("Yellow = hunger projects with <50% free and reduced-price lunch")
-    st.caption("Dark gray = no hunger projects with 50+% free and reduced-price lunch")
-    st.caption("Light gray = no hunger projects with <50% free and reduced-price lunch")
+    st.caption("Red = schools with hunger projects, 50+% free/reduced-price lunch")
+    st.caption("Yellow = schools with hunger projects, <50% free/reduced-price lunch")
+    st.caption("Dark gray = schools with no hunger projects, 50+% free/reduced-price lunch")
+    st.caption("Light gray = schools with no hunger projects, <50% free/reduced-price lunch")
