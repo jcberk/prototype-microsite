@@ -16,17 +16,27 @@ def credits():
         states have policies that suppress certain types of requests.")
 
 if 'access_code' not in st.session_state or \
+
     st.session_state.access_code != os.environ["access_code_secret"]:
     login_page = st.Page("login.py", title="Enter access code")
     pg = st.navigation([login_page])
 
+    pg.run()
+
 else:
+
+    @st.cache_data
+    def get_data_urls():
+        url = os.environ["data_secret"]
+        conn = st.connection("gsheets", type=GSheetsConnection)
+        return conn.read(spreadsheet=url)
+
+    data_urls = get_data_urls()
+
     map_page = st.Page("map.py", title="Live* classroom needs")
     metro_page = st.Page("metro.py", title="Hunger and nutrition by metro area")
     pg = st.navigation([map_page, metro_page])
 
-pg.run()
+    pg.run()
 
-if 'access_code' in st.session_state and \
-    st.session_state.access_code == os.environ["access_code_secret"]:
     credits()
