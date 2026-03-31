@@ -17,7 +17,7 @@ metros = {"Cleveland": "cleveland",\
 
 @st.cache_data
 def get_metro_schools(metro):
-    url = os.environ[metros[metro] + "_schools_secret"]
+    url = st.session_state.data_urls[metros[metro] + "-hunger-2024-2025"]
     conn = st.connection("gsheets", type=GSheetsConnection)
     return conn.read(spreadsheet=url)
 
