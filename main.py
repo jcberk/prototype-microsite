@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 import os
 
 st.set_page_config(page_title="PROTOTYPE: Hunger in US Classrooms")
@@ -16,7 +17,6 @@ def credits():
         states have policies that suppress certain types of requests.")
 
 if 'access_code' not in st.session_state or \
-
     st.session_state.access_code != os.environ["access_code_secret"]:
     login_page = st.Page("login.py", title="Enter access code")
     pg = st.navigation([login_page])
@@ -31,7 +31,8 @@ else:
         conn = st.connection("gsheets", type=GSheetsConnection)
         return conn.read(spreadsheet=url)
 
-    data_urls = get_data_urls()
+    if 'data_urls' not in st.session_state:
+        st.session_state.data_urls = dict(get_data_urls().values)
 
     map_page = st.Page("map.py", title="Live* classroom needs")
     metro_page = st.Page("metro.py", title="Hunger and nutrition by metro area")
