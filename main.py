@@ -7,7 +7,7 @@ st.set_page_config(page_title="PROTOTYPE: Hunger in US Classrooms")
 def credits():
     container = st.container()
     container.markdown("#### * Data Note")
-    container.write("\"Live\" data in this prototype is from January 26, 2026.")
+    container.write("\"Live\" data in this prototype is from March 23, 2026.")
     container.write("This site uses data from DonorsChoose projects and data about schools \
         from the National Center for Education Statistics, via our partners at MDR Education.")
     container.write("This dashboard is a directional tool to inform strategy, not a \
